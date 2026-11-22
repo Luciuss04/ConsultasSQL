@@ -6,6 +6,7 @@ import com.luciuss4.tema02.boletin1.Ejercicio3.Etapa;
 import com.luciuss4.tema02.boletin1.Ejercicio3.ResumenTipo;
 import com.luciuss4.tema02.boletin1.Ejercicio4.VelocidadCiclista;
 import com.luciuss4.tema02.boletin1.Ejercicio5.ClasificacionEtapa;
+import com.luciuss4.tema02.boletin1.Ejercicio6.ClasificacionPuntos;
 
 import java.time.Duration;
 import java.util.List;
@@ -23,6 +24,8 @@ public class Consola {
         System.out.println("3. Listar etapas");
         System.out.println("4. Velocidad media de un ciclista");
         System.out.println("5. Clasificación de etapa");
+        System.out.println("6. Clasificación de la montaña");
+        System.out.println("7. Clasificación de la regularidad");
         System.out.println("0. Salir");
         return leerEntero("Opción: ");
     }
@@ -106,6 +109,17 @@ public class Consola {
         for (ClasificacionEtapa c : clasificacion) {
             System.out.printf("%-4d %-22s %-22s %10s%n",
                     c.getPosicion(), c.getCiclista(), c.getEquipo(), formatearTiempo(c.getTiempo()));
+        }
+    }
+
+    public void mostrarClasificacionPuntos(String titulo, List<ClasificacionPuntos> clasificacion) {
+        System.out.println();
+        System.out.println(titulo);
+        System.out.printf("%-4s %-22s %-22s %7s%n", "POS", "CICLISTA", "EQUIPO", "PUNTOS");
+        System.out.println("-".repeat(58));
+        for (ClasificacionPuntos c : clasificacion) {
+            System.out.printf("%-4d %-22s %-22s %7d%n",
+                    c.getPosicion(), c.getCiclista(), c.getEquipo(), c.getPuntos());
         }
     }
 
