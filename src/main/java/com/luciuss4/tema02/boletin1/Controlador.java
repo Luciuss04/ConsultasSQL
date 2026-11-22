@@ -6,6 +6,8 @@ import com.luciuss4.tema02.boletin1.Ejercicio2.CiclistaDAO;
 import com.luciuss4.tema02.boletin1.Ejercicio3.EtapaDAO;
 import com.luciuss4.tema02.boletin1.Ejercicio4.VelocidadCiclista;
 import com.luciuss4.tema02.boletin1.Ejercicio4.VelocidadDAO;
+import com.luciuss4.tema02.boletin1.Ejercicio5.ClasificacionEtapa;
+import com.luciuss4.tema02.boletin1.Ejercicio5.ClasificacionEtapaDAO;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -17,6 +19,7 @@ public class Controlador {
     private final CiclistaDAO ciclistaDAO = new CiclistaDAO();
     private final EtapaDAO etapaDAO = new EtapaDAO();
     private final VelocidadDAO velocidadDAO = new VelocidadDAO();
+    private final ClasificacionEtapaDAO clasificacionEtapaDAO = new ClasificacionEtapaDAO();
 
     public void iniciar() {
         int opcion;
@@ -28,6 +31,7 @@ public class Controlador {
                     case 2 -> ciclistasPorEquipo();
                     case 3 -> listarEtapas();
                     case 4 -> velocidadMedia();
+                    case 5 -> clasificacionEtapa();
                     case 0 -> consola.mostrarMensaje("¡Hasta pronto!");
                     default -> consola.mostrarMensaje("Opción no válida.");
                 }
@@ -79,6 +83,18 @@ public class Controlador {
             consola.mostrarMensaje("El ciclista " + idCiclista + " no pertenece al equipo " + idEquipo + ".");
         } else {
             consola.mostrarVelocidad(v);
+        }
+    }
+
+    private void clasificacionEtapa() throws SQLException {
+        consola.mostrarEtapas(etapaDAO.listar());
+        int idEtapa = consola.leerEntero("ID de la etapa: ");
+
+        List<ClasificacionEtapa> clasificacion = clasificacionEtapaDAO.clasificacion(idEtapa);
+        if (clasificacion.isEmpty()) {
+            consola.mostrarMensaje("No hay resultados para la etapa " + idEtapa + ".");
+        } else {
+            consola.mostrarClasificacionEtapa(idEtapa, clasificacion);
         }
     }
 }

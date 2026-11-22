@@ -5,7 +5,9 @@ import com.luciuss4.tema02.boletin1.Ejercicio2.Ciclista;
 import com.luciuss4.tema02.boletin1.Ejercicio3.Etapa;
 import com.luciuss4.tema02.boletin1.Ejercicio3.ResumenTipo;
 import com.luciuss4.tema02.boletin1.Ejercicio4.VelocidadCiclista;
+import com.luciuss4.tema02.boletin1.Ejercicio5.ClasificacionEtapa;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,6 +22,7 @@ public class Consola {
         System.out.println("2. Ciclistas por equipo");
         System.out.println("3. Listar etapas");
         System.out.println("4. Velocidad media de un ciclista");
+        System.out.println("5. Clasificación de etapa");
         System.out.println("0. Salir");
         return leerEntero("Opción: ");
     }
@@ -93,6 +96,21 @@ public class Consola {
             System.out.printf("%s: %.2f km/h de media (%.2f km en %d etapas)%n",
                     v.getNombre(), v.getVelocidadMedia(), v.getKm(), v.getEtapas());
         }
+    }
+
+    public void mostrarClasificacionEtapa(int idEtapa, List<ClasificacionEtapa> clasificacion) {
+        System.out.println();
+        System.out.println("Clasificación de la etapa " + idEtapa);
+        System.out.printf("%-4s %-22s %-22s %10s%n", "POS", "CICLISTA", "EQUIPO", "TIEMPO");
+        System.out.println("-".repeat(61));
+        for (ClasificacionEtapa c : clasificacion) {
+            System.out.printf("%-4d %-22s %-22s %10s%n",
+                    c.getPosicion(), c.getCiclista(), c.getEquipo(), formatearTiempo(c.getTiempo()));
+        }
+    }
+
+    private String formatearTiempo(Duration d) {
+        return String.format("%02d:%02d:%02d", d.toHours(), d.toMinutesPart(), d.toSecondsPart());
     }
 
     public void mostrarMensaje(String mensaje) {
