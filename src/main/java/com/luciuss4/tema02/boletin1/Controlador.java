@@ -4,6 +4,8 @@ import com.luciuss4.tema02.boletin1.Ejercicio1.EquipoDAO;
 import com.luciuss4.tema02.boletin1.Ejercicio2.Ciclista;
 import com.luciuss4.tema02.boletin1.Ejercicio2.CiclistaDAO;
 import com.luciuss4.tema02.boletin1.Ejercicio3.EtapaDAO;
+import com.luciuss4.tema02.boletin1.Ejercicio4.VelocidadCiclista;
+import com.luciuss4.tema02.boletin1.Ejercicio4.VelocidadDAO;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -14,6 +16,7 @@ public class Controlador {
     private final EquipoDAO equipoDAO = new EquipoDAO();
     private final CiclistaDAO ciclistaDAO = new CiclistaDAO();
     private final EtapaDAO etapaDAO = new EtapaDAO();
+    private final VelocidadDAO velocidadDAO = new VelocidadDAO();
 
     public void iniciar() {
         int opcion;
@@ -24,6 +27,7 @@ public class Controlador {
                     case 1 -> listarEquipos();
                     case 2 -> ciclistasPorEquipo();
                     case 3 -> listarEtapas();
+                    case 4 -> velocidadMedia();
                     case 0 -> consola.mostrarMensaje("¡Hasta pronto!");
                     default -> consola.mostrarMensaje("Opción no válida.");
                 }
@@ -56,5 +60,25 @@ public class Controlador {
     private void listarEtapas() throws SQLException {
         consola.mostrarEtapas(etapaDAO.listar());
         consola.mostrarResumenEtapas(etapaDAO.resumenPorTipo());
+    }
+
+    private void velocidadMedia() throws SQLException {
+        consola.mostrarEquipos(equipoDAO.listar());
+        int idEquipo = consola.leerEntero("ID del equipo: ");
+
+        List<Ciclista> ciclistas = ciclistaDAO.listarPorEquipo(idEquipo);
+        if (ciclistas.isEmpty()) {
+            consola.mostrarMensaje("No hay ciclistas para el equipo " + idEquipo + ".");
+            return;
+        }
+        consola.mostrarCiclistas(ciclistas);
+        int idCiclista = consola.leerEntero("ID del ciclista: ");
+
+        VelocidadCiclista v = velocidadDAO.velocidadMedia(idEquipo, idCiclista);
+        if (v == null) {
+            consola.mostrarMensaje("El ciclista " + idCiclista + " no pertenece al equipo " + idEquipo + ".");
+        } else {
+            consola.mostrarVelocidad(v);
+        }
     }
 }

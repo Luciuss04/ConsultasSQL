@@ -4,6 +4,7 @@ import com.luciuss4.tema02.boletin1.Ejercicio1.Equipo;
 import com.luciuss4.tema02.boletin1.Ejercicio2.Ciclista;
 import com.luciuss4.tema02.boletin1.Ejercicio3.Etapa;
 import com.luciuss4.tema02.boletin1.Ejercicio3.ResumenTipo;
+import com.luciuss4.tema02.boletin1.Ejercicio4.VelocidadCiclista;
 
 import java.util.List;
 import java.util.Scanner;
@@ -18,6 +19,7 @@ public class Consola {
         System.out.println("1. Listar equipos");
         System.out.println("2. Ciclistas por equipo");
         System.out.println("3. Listar etapas");
+        System.out.println("4. Velocidad media de un ciclista");
         System.out.println("0. Salir");
         return leerEntero("Opción: ");
     }
@@ -80,6 +82,16 @@ public class Consola {
         System.out.println("-".repeat(28));
         for (ResumenTipo r : resumen) {
             System.out.printf("%-9s %7d %10.2f%n", r.getTipo(), r.getNumEtapas(), r.getKmTotales());
+        }
+    }
+
+    public void mostrarVelocidad(VelocidadCiclista v) {
+        System.out.println();
+        if (v.getEtapas() == 0) {
+            System.out.println(v.getNombre() + " no ha terminado ninguna etapa.");
+        } else {
+            System.out.printf("%s: %.2f km/h de media (%.2f km en %d etapas)%n",
+                    v.getNombre(), v.getVelocidadMedia(), v.getKm(), v.getEtapas());
         }
     }
 
