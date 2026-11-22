@@ -11,6 +11,7 @@ import com.luciuss4.tema02.boletin1.Ejercicio5.ClasificacionEtapaDAO;
 import com.luciuss4.tema02.boletin1.Ejercicio6.ClasificacionMontanaDAO;
 import com.luciuss4.tema02.boletin1.Ejercicio7.ClasificacionRegularidadDAO;
 import com.luciuss4.tema02.boletin1.Ejercicio8.ClasificacionGeneralDAO;
+import com.luciuss4.tema02.boletin1.Ejercicio9.ClasificacionEquiposDAO;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Controlador {
     private final ClasificacionMontanaDAO clasificacionMontanaDAO = new ClasificacionMontanaDAO();
     private final ClasificacionRegularidadDAO clasificacionRegularidadDAO = new ClasificacionRegularidadDAO();
     private final ClasificacionGeneralDAO clasificacionGeneralDAO = new ClasificacionGeneralDAO();
+    private final ClasificacionEquiposDAO clasificacionEquiposDAO = new ClasificacionEquiposDAO();
 
     public void iniciar() {
         int opcion;
@@ -41,6 +43,7 @@ public class Controlador {
                     case 6 -> clasificacionMontana();
                     case 7 -> clasificacionRegularidad();
                     case 8 -> clasificacionGeneral();
+                    case 9 -> clasificacionEquipos();
                     case 0 -> consola.mostrarMensaje("¡Hasta pronto!");
                     default -> consola.mostrarMensaje("Opción no válida.");
                 }
@@ -123,5 +126,9 @@ public class Controlador {
         consola.mostrarClasificacionTiempos(
                 "Clasificación general",
                 clasificacionGeneralDAO.clasificacion());
+    }
+
+    private void clasificacionEquipos() throws SQLException {
+        consola.mostrarClasificacionEquipos(clasificacionEquiposDAO.clasificacion());
     }
 }
