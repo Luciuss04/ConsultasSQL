@@ -10,6 +10,7 @@ import com.luciuss4.tema02.boletin1.Ejercicio5.ClasificacionEtapa;
 import com.luciuss4.tema02.boletin1.Ejercicio5.ClasificacionEtapaDAO;
 import com.luciuss4.tema02.boletin1.Ejercicio6.ClasificacionMontanaDAO;
 import com.luciuss4.tema02.boletin1.Ejercicio7.ClasificacionRegularidadDAO;
+import com.luciuss4.tema02.boletin1.Ejercicio8.ClasificacionGeneralDAO;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -24,6 +25,7 @@ public class Controlador {
     private final ClasificacionEtapaDAO clasificacionEtapaDAO = new ClasificacionEtapaDAO();
     private final ClasificacionMontanaDAO clasificacionMontanaDAO = new ClasificacionMontanaDAO();
     private final ClasificacionRegularidadDAO clasificacionRegularidadDAO = new ClasificacionRegularidadDAO();
+    private final ClasificacionGeneralDAO clasificacionGeneralDAO = new ClasificacionGeneralDAO();
 
     public void iniciar() {
         int opcion;
@@ -38,6 +40,7 @@ public class Controlador {
                     case 5 -> clasificacionEtapa();
                     case 6 -> clasificacionMontana();
                     case 7 -> clasificacionRegularidad();
+                    case 8 -> clasificacionGeneral();
                     case 0 -> consola.mostrarMensaje("¡Hasta pronto!");
                     default -> consola.mostrarMensaje("Opción no válida.");
                 }
@@ -100,7 +103,7 @@ public class Controlador {
         if (clasificacion.isEmpty()) {
             consola.mostrarMensaje("No hay resultados para la etapa " + idEtapa + ".");
         } else {
-            consola.mostrarClasificacionEtapa(idEtapa, clasificacion);
+            consola.mostrarClasificacionTiempos("Clasificación de la etapa " + idEtapa, clasificacion);
         }
     }
 
@@ -114,5 +117,11 @@ public class Controlador {
         consola.mostrarClasificacionPuntos(
                 "Clasificación de la regularidad (maillot verde)",
                 clasificacionRegularidadDAO.clasificacion());
+    }
+
+    private void clasificacionGeneral() throws SQLException {
+        consola.mostrarClasificacionTiempos(
+                "Clasificación general",
+                clasificacionGeneralDAO.clasificacion());
     }
 }

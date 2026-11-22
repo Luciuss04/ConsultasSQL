@@ -26,6 +26,7 @@ public class Consola {
         System.out.println("5. Clasificación de etapa");
         System.out.println("6. Clasificación de la montaña");
         System.out.println("7. Clasificación de la regularidad");
+        System.out.println("8. Clasificación general");
         System.out.println("0. Salir");
         return leerEntero("Opción: ");
     }
@@ -101,9 +102,9 @@ public class Consola {
         }
     }
 
-    public void mostrarClasificacionEtapa(int idEtapa, List<ClasificacionEtapa> clasificacion) {
+    public void mostrarClasificacionTiempos(String titulo, List<ClasificacionEtapa> clasificacion) {
         System.out.println();
-        System.out.println("Clasificación de la etapa " + idEtapa);
+        System.out.println(titulo);
         System.out.printf("%-4s %-22s %-22s %10s%n", "POS", "CICLISTA", "EQUIPO", "TIEMPO");
         System.out.println("-".repeat(61));
         for (ClasificacionEtapa c : clasificacion) {
